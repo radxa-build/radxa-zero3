@@ -1,9 +1,9 @@
-# Radxa ZERO 3W
-[![Build image for Release channel](https://github.com/radxa-build/radxa-zero-3w/actions/workflows/build.yml/badge.svg)](https://github.com/radxa-build/radxa-zero-3w/actions/workflows/build.yml)[![Build image for Test channel](https://github.com/radxa-build/radxa-zero-3w/actions/workflows/test.yml/badge.svg)](https://github.com/radxa-build/radxa-zero-3w/actions/workflows/test.yml)
+# Radxa ZERO 3
+[![Build image for Release channel](https://github.com/radxa-build/radxa-zero3/actions/workflows/build.yml/badge.svg)](https://github.com/radxa-build/radxa-zero3/actions/workflows/build.yml)[![Build image for Test channel](https://github.com/radxa-build/radxa-zero3/actions/workflows/test.yml/badge.svg)](https://github.com/radxa-build/radxa-zero3/actions/workflows/test.yml)
 
 ## What is this?
 
-This repo is the central location for Radxa-built system images for Radxa ZERO 3W.
+This repo is the central location for Radxa-built system images for Radxa ZERO 3.
 
 ## What images are provided?
 
@@ -14,7 +14,7 @@ Currently 4 flavors are provided:
 - Ubuntu Xfce: This flavor is provided as-is except for critical issues. Desktop is currently not working and we intend to fix it in a later time. This (currently broken) build is generated to catch build system issues.
 - Ubuntu CLI: This flavor is provided as-is except for critical issues. Users should look at Debian CLI as an alternative.
 
-Please also always use [the latest release](https://github.com/radxa-build/radxa-zero-3w/releases/latest) instead of any pre-release / test builds. Those will not be supported.
+Please also always use [the latest release](https://github.com/radxa-build/radxa-zero3/releases/latest) instead of any pre-release / test builds. Those will not be supported.
 
 ## Is there any other options?
 

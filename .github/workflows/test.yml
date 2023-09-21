@@ -27,7 +27,7 @@ jobs:
     needs: prepare_release
     strategy:
       matrix:
-        boards: [radxa-zero-3w]
+        boards: [radxa-zero3]
         build_systems: [rbuild]
         distros: [debian, ubuntu]
         flavors: [xfce, cli]
