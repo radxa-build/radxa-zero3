@@ -1,0 +1,66 @@
+env:
+  GH_TOKEN: "${{ github.token }}"
+jobs:
+  build:
+    needs: "prepare_release"
+    runs-on: "ubuntu-22.04"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+    - name: "Build image"
+      uses: "RadxaOS-SDK/rsdk/.github/actions/build@main"
+      with:
+        edition: "${{ matrix.edition }}"
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        product: "${{ matrix.product }}"
+        release-id: "${{ needs.prepare_release.outputs.release_id }}"
+        suite: "${{ matrix.suite }}"
+    strategy:
+      matrix:
+        edition: "${{ fromJSON(needs.prepare_release.outputs.editions )}}"
+        product:
+        - "radxa-zero3"
+        suite: "${{ fromJSON(needs.prepare_release.outputs.suites )}}"
+  prepare_release:
+    outputs:
+      editions: "${{ steps.query.outputs.editions }}"
+      release_id: "${{ steps.release.outputs.id }}"
+      suites: "${{ steps.query.outputs.suites }}"
+    runs-on: "ubuntu-latest"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+    - name: "Check for existing releases"
+      run: |
+        TAG="rsdk-b${{ github.run_number }}"
+        if git show-ref --tags --verify --quiet "refs/tags/${TAG}"; then
+            echo "Release ${TAG} exists."
+            exit 1
+        fi
+    - name: "Generate changelog"
+      uses: "radxa-repo/rbuild-changelog@main"
+      with:
+        product: "radxa-zero3"
+    - id: "query"
+      name: "Query product info"
+      uses: "RadxaOS-SDK/rsdk/.github/actions/query@main"
+      with:
+        product: "radxa-zero3"
+    - id: "release"
+      name: "Create empty release"
+      uses: "softprops/action-gh-release@v2"
+      with:
+        body_path: "README.md"
+        draft: false
+        files: ".changelog/changelog.md"
+        name: "b${{ github.run_number }} (rsdk)"
+        prerelease: true
+        tag_name: "rsdk-b${{ github.run_number }}"
+        target_commitish: "main"
+        token: "${{ secrets.GITHUB_TOKEN }}"
+name: "Build image for release channel"
+"on":
+  workflow_dispatch: {}
